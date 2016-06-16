@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import fileOperators.JSONsaver;
 import fileOperators.Test;
 
 import javax.swing.JTabbedPane;
@@ -32,6 +33,10 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 	private Options options;
+	private GeneralConfiguration general;
+	private Start start;
+	private Elements elements;
+	private End end;
 	
 	/**
 	 * Launch the application.
@@ -75,16 +80,16 @@ public class MainFrame extends JFrame {
 	public void newConfiguration(){
 		tabbedPane.removeAll();
 		
-		GeneralConfiguration general = new GeneralConfiguration();
+		general = new GeneralConfiguration();
 		tabbedPane.addTab("General Configuration", null, general, null);
 		
-		Start start = new Start();
+		start = new Start();
 		tabbedPane.addTab("Start", null, start, null);
 		
-		Elements elements = new Elements();
+		elements = new Elements();
 		tabbedPane.addTab("Elements", null, elements, null);
 		
-		End end = new End();
+		end = new End();
 		tabbedPane.addTab("End", null, end, null);
 		
 		
@@ -112,13 +117,15 @@ public class MainFrame extends JFrame {
 	
 	public void saveConfiguration(){
 		
-JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser();
 		
 		int returnVal = fc.showSaveDialog(this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             //This is where a real application would open the file.
+            new JSONsaver(file, general, options, start, elements, end );
+            
             new JOptionPane().showMessageDialog(this, "Saving: " + file.getName() + ".", "fileSaver", JOptionPane.INFORMATION_MESSAGE);
         } else {
         	System.out.println("Open command cancelled by user.");
