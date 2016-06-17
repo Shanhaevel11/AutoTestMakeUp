@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.json.simple.parser.ParseException;
+
+import fileOperators.JSONloader;
 import fileOperators.JSONsaver;
 import fileOperators.Test;
 
@@ -21,6 +24,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -108,6 +112,16 @@ public class MainFrame extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             //This is where a real application would open the file.
+            try {
+				new JSONloader(file, general, options, start, elements, end);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
             new JOptionPane().showMessageDialog(this, "Opening: " + file.getName() + ".", "fileLoader", JOptionPane.INFORMATION_MESSAGE);
         } else {
         	System.out.println("Open command cancelled by user.");

@@ -19,13 +19,7 @@
     </plugins>
   
   </build>
-	<repositories>
-	  <repository>
-	    <id>central</id>
-	    <name>bintray</name>
-	    <url>http://jcenter.bintray.com</url>
-	  </repository>
-	</repositories>
+
   
     <dependencies>
 		<dependency>
@@ -48,6 +42,11 @@
 		    <groupId>com.miglayout</groupId>
 		    <artifactId>miglayout-swing</artifactId>
 		    <version>4.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
 		</dependency>
 		    
     
