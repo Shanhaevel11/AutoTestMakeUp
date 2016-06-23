@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 import fileOperators.JSONloader;
 import fileOperators.JSONsaver;
 import fileOperators.Test;
+import generator.GeneratorAlpha;
 
 import javax.swing.JTabbedPane;
 import java.awt.Component;
@@ -149,6 +150,14 @@ public class MainFrame extends JFrame {
 	
 	public void closeApplication(){
 		System.exit(0);
+		
+	}
+	
+	public void generateTests(){
+		
+		GeneratorAlpha gen = new GeneratorAlpha();
+		System.out.println("RETURNED DATA : " + start.returnData());
+		gen.generateAlpha(start.returnData());
 		
 	}
 	

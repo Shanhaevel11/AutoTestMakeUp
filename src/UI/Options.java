@@ -55,6 +55,15 @@ public class Options extends JPanel {
 		btnExitApplication.setBounds(599, 199, 128, 37);
 		add(btnExitApplication);
 		
+		JButton btnNewButton = new JButton("GENERATE TEST");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clickGenerate();
+			}
+		});
+		btnNewButton.setBounds(70, 55, 356, 181);
+		add(btnNewButton);
+		
 	}
 	
 	private void clickNew(){
@@ -88,5 +97,12 @@ public class Options extends JPanel {
 		parent.closeApplication();
 
 	}
+	
+	private void clickGenerate(){
+		//todo: check if it's ok
+		
+		//tell MainFrame to load configuration
+		parent.generateTests();
 
+	}
 }
