@@ -22,4 +22,16 @@ public class Tools {
 		
 	}
 	
+	public void startMethod(){
+		
+		System.out.println("This is execution of startMethod");
+		
+	}
+
+	public void endMethod(){
+	
+	System.out.println("This is execution of endMethod");
+	
+}
+	
 }

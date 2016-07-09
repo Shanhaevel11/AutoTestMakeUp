@@ -32,6 +32,10 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame {
 
@@ -63,8 +67,16 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				
+				closingApplication();
+				
+			}
+		});
+		
 		setTitle("AutoTestMakeUp");
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 640);
 		contentPane = new JPanel();
@@ -82,6 +94,19 @@ public class MainFrame extends JFrame {
 	
 	
 	
+	protected void closingApplication() {
+		String[] options = new String[] {"Yes", "No"};
+	    int response = JOptionPane.showOptionDialog(null, "Do you wish to save before closing application?", "This generator will die in a moment",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+	        null, options, options[0]);
+		
+	    if(response==0){
+	    	saveConfiguration();
+	    }else{
+	    	return;
+	    }
+	}
+
 	public void newConfiguration(){
 		tabbedPane.removeAll();
 		
@@ -149,6 +174,9 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void closeApplication(){
+		
+		closingApplication();
+		
 		System.exit(0);
 		
 	}

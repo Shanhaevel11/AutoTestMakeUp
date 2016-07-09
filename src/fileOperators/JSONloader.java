@@ -22,7 +22,10 @@ public JSONloader(File file, GeneralConfiguration generalConfiguration, Options 
 
 		JSONObject data = new JSONObject(obj.toString());
 		
+		generalConfiguration.loadData(data.getJSONObject("generalConfiguration"));
 		start.loadData(data.getJSONObject("start"));
+		end.loadData(data.getJSONObject("end"));
+		elements.loadData(data.getJSONObject("elements"));
 		
 	}	
 	

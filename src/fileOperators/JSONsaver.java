@@ -17,6 +17,9 @@ public class JSONsaver {
 		JSONObject save = new JSONObject();
 		
 		save.put("start", start.saveData());
+		save.put("generalConfiguration", generalConfiguration.saveData());
+		save.put("end", end.saveData());
+		save.put("elements", elements.saveData());
 		
 		
 		try {

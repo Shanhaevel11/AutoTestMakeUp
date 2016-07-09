@@ -19,8 +19,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 public class Start extends JPanel {
-
-	JCheckBox testCheck;
 	JCheckBox useStart;
 	JComboBox methodBox;
 	JCheckBox useOtherMethod;
@@ -31,10 +29,6 @@ public class Start extends JPanel {
 	public Start() {
 		setBounds(100, 100, 800, 640);
 		setLayout(null);
-		
-		testCheck = new JCheckBox("New check box");
-		testCheck.setBounds(56, 56, 265, 23);
-		add(testCheck);
 		
 		useStart = new JCheckBox("Use Start Method at the beggining");
 		useStart.setBounds(56, 82, 265, 23);
@@ -71,7 +65,6 @@ public class Start extends JPanel {
 	public JSONObject saveData(){
 		
 		JSONObject startData = new JSONObject();
-		startData.put("Test", testCheck.isSelected());
 		startData.put("useStart", useStart.isSelected());
 		startData.put("useOtherMethod", useOtherMethod.isSelected());
 		startData.put("otherMethod", methodBox.getSelectedItem().toString());
@@ -83,7 +76,6 @@ public class Start extends JPanel {
 	
 	public void loadData(JSONObject data){
 		
-		testCheck.setSelected((boolean) data.get("Test"));	
 		useStart.setSelected((boolean) data.get("useStart"));
 		useOtherMethod.setSelected((boolean) data.get("useOtherMethod"));	
 		methodBox.setSelectedItem(data.getString("otherMethod"));
