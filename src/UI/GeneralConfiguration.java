@@ -21,11 +21,13 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class GeneralConfiguration extends JPanel {
 	private JTextField limitOfSteps;
 	private JTextField browserPath;
 	private JCheckBox chkLimitOfSteps;
+	private JComboBox browser;
 	
 	/**
 	 * Create the panel.
@@ -36,7 +38,7 @@ public class GeneralConfiguration extends JPanel {
 		setLayout(null);
 		
 		chkLimitOfSteps = new JCheckBox("Set limit of steps for test:");
-		chkLimitOfSteps.setBounds(56, 171, 175, 23);
+		chkLimitOfSteps.setBounds(56, 235, 175, 23);
 		add(chkLimitOfSteps);
 		
 		limitOfSteps = new JTextField();
@@ -57,12 +59,12 @@ public class GeneralConfiguration extends JPanel {
 			}
 		});
 		limitOfSteps.setText("100");
-		limitOfSteps.setBounds(237, 172, 86, 20);
+		limitOfSteps.setBounds(237, 236, 86, 20);
 		add(limitOfSteps);
 		limitOfSteps.setColumns(10);
 		
 		JLabel lblSteps = new JLabel("steps");
-		lblSteps.setBounds(333, 175, 46, 14);
+		lblSteps.setBounds(333, 239, 46, 14);
 		add(lblSteps);
 		
 		JButton btnSelectBrowserdriverPath = new JButton("Select browser/driver path");
@@ -73,13 +75,23 @@ public class GeneralConfiguration extends JPanel {
 				
 			}
 		});
-		btnSelectBrowserdriverPath.setBounds(56, 96, 240, 23);
+		btnSelectBrowserdriverPath.setBounds(56, 152, 240, 23);
 		add(btnSelectBrowserdriverPath);
 		
 		browserPath = new JTextField();
-		browserPath.setBounds(56, 130, 296, 20);
+		browserPath.setBounds(56, 186, 296, 20);
 		add(browserPath);
 		browserPath.setColumns(10);
+		
+		JLabel lblChooseYourBrowser = new JLabel("Choose your browser");
+		lblChooseYourBrowser.setBounds(56, 73, 175, 14);
+		add(lblChooseYourBrowser);
+		
+		browser = new JComboBox();
+		browser.setBounds(56, 98, 240, 20);
+		browser.addItem("Chrome");
+		browser.addItem("Firefox");
+		add(browser);
 		
 	}
 	
@@ -107,6 +119,7 @@ public class GeneralConfiguration extends JPanel {
 		generalConfigurationData.put("browserPath", browserPath.getText());
 		generalConfigurationData.put("chkLimitOfSteps", chkLimitOfSteps.isSelected());
 		generalConfigurationData.put("limitOfSteps", limitOfSteps.getText());
+		generalConfigurationData.put("browser", browser.getSelectedItem());
 		//startData.put("Test2", testCheck);		
 		
 		return generalConfigurationData;
@@ -118,6 +131,6 @@ public class GeneralConfiguration extends JPanel {
 		browserPath.setText(data.getString("browserPath"));
 		chkLimitOfSteps.setSelected((boolean) data.get("chkLimitOfSteps"));	
 		limitOfSteps.setText(data.getString("limitOfSteps"));
+		browser.setSelectedItem(data.getString("browser"));
 	}
-	
 }

@@ -51,6 +51,8 @@ public class Elements extends JSplitPane {
 	private Entry selectedEntry;
 	private JLabel lblHowManyTimes;
 	private JTextField usageLimit;
+	private JCheckBox chkPageWillChange;
+	private JCheckBox chkUseWaitMethod;
 	
 	
 	/**
@@ -160,11 +162,11 @@ public class Elements extends JSplitPane {
 		panel.add(executionMethod);
 		
 		chkPassElement = new JCheckBox("Pass Detected Element as argument");
-		chkPassElement.setBounds(56, 384, 265, 23);
+		chkPassElement.setBounds(52, 384, 265, 23);
 		panel.add(chkPassElement);
 		
 		chkPassBrowser = new JCheckBox("Pass Browser as argument");
-		chkPassBrowser.setBounds(56, 410, 265, 23);
+		chkPassBrowser.setBounds(52, 410, 265, 23);
 		panel.add(chkPassBrowser);
 		
 		btnDeleteSelected = new JButton("Delete selected");
@@ -205,6 +207,15 @@ public class Elements extends JSplitPane {
 		});
 		
 		panel.add(usageLimit);
+		
+		chkUseWaitMethod = new JCheckBox("Use Wait method after execution");
+		chkUseWaitMethod.setSelected(true);
+		chkUseWaitMethod.setBounds(52, 497, 269, 23);
+		panel.add(chkUseWaitMethod);
+		
+		chkPageWillChange = new JCheckBox("Page will change after handling this entry");
+		chkPageWillChange.setBounds(52, 523, 269, 23);
+		panel.add(chkPageWillChange);
 
 		scrollPane = new JScrollPane();
 		this.setLeftComponent(scrollPane);
@@ -264,12 +275,14 @@ public class Elements extends JSplitPane {
 			XpathOfElement.setText(selectedEntry.getDetectionValue());
 
 		}
+		
 		//System.out.println("Yolo3" + selectedEntry.getName() + selectedEntry.getDetectionType() + selectedEntry.getDetectionValue());
 		usageLimit.setText(Integer.toString(selectedEntry.getUsageLimit()));
 		executionMethod.setSelectedItem(selectedEntry.getMethodName());
 		chkPassElement.setSelected(selectedEntry.isPassElement());
 		chkPassBrowser.setSelected(selectedEntry.isPassBrowser());
-		
+		chkUseWaitMethod.setSelected(selectedEntry.isWaitAfterMethod());
+		chkPageWillChange.setSelected(selectedEntry.isPageChanger());
 		
 	}
 	
@@ -350,7 +363,8 @@ public class Elements extends JSplitPane {
 	      }
 		
 		
-		Entry entry = new Entry(nameOfElement.getText(), detectionType, detectionValue, executionMethod.getSelectedItem().toString(), chkPassElement.isSelected(), chkPassBrowser.isSelected(), limit);
+		Entry entry = new Entry(nameOfElement.getText(), detectionType, detectionValue, 
+				executionMethod.getSelectedItem().toString(), chkPassElement.isSelected(), chkPassBrowser.isSelected(), limit, chkUseWaitMethod.isSelected(), chkPageWillChange.isSelected() );
 		
 		if(names.contains(entry.getName())){
 			
@@ -399,7 +413,8 @@ public class Elements extends JSplitPane {
 	      }
 		
 		
-		Entry entry = new Entry(nameOfElement.getText(), detectionType, detectionValue, executionMethod.getSelectedItem().toString(), chkPassElement.isSelected(), chkPassBrowser.isSelected(), limit);
+		Entry entry = new Entry(nameOfElement.getText(), detectionType, detectionValue, executionMethod.getSelectedItem().toString(), 
+				chkPassElement.isSelected(), chkPassBrowser.isSelected(), limit, chkUseWaitMethod.isSelected(), chkPageWillChange.isSelected());
 		
 		if(names.contains(entry.getName())){
 			
@@ -474,7 +489,7 @@ public class Elements extends JSplitPane {
 		for(Object en : toParse){
 			JSONObject ent = (JSONObject) en;
 					Entry entry = new Entry(ent.getString("name"), ent.getString("detectionType"), ent.getString("detectionValue"),
-							 ent.getString("methodName"), (boolean) ent.get("passElement"), (boolean) ent.get("passBrowser"), (int) ent.get("usageLimit"));
+							 ent.getString("methodName"), (boolean) ent.get("passElement"), (boolean) ent.get("passBrowser"), (int) ent.get("usageLimit"), (boolean) ent.getBoolean("waitAfterMethod"), (boolean) ent.getBoolean("pageChanger"));
 					entries.addElement(entry);
 		}
 		for(Entry e : entries){
@@ -486,5 +501,4 @@ public class Elements extends JSplitPane {
 		scrollPane.repaint();
 		if(entries.size()>0)list.setSelectedIndex(0);
 	}
-	
 }

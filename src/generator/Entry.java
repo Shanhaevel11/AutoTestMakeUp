@@ -9,11 +9,12 @@ public class Entry {
 	public boolean passElement;
 	public boolean passBrowser;
 	public int usageLimit=100;
-	
+	public boolean waitAfterMethod;
+	public boolean pageChanger;
 	
 	
 	public Entry(String name, String detectionType, String detectionValue, String methodName, boolean passElement,
-			boolean passBrowser, int usageLimit) {
+			boolean passBrowser, int usageLimit, boolean waitAfterMethod, boolean pageChanger) {
 		super();
 		this.name = name;
 		this.detectionType = detectionType;
@@ -22,11 +23,33 @@ public class Entry {
 		this.passElement = passElement;
 		this.passBrowser = passBrowser;
 		this.usageLimit = usageLimit;
+		this.waitAfterMethod = waitAfterMethod;
+		this.pageChanger = pageChanger;
 	}
 	
 
 	public int getUsageLimit() {
 		return usageLimit;
+	}
+
+
+	public boolean isWaitAfterMethod() {
+		return waitAfterMethod;
+	}
+
+
+	public void setWaitAfterMethod(boolean waitAfterMethod) {
+		this.waitAfterMethod = waitAfterMethod;
+	}
+
+
+	public boolean isPageChanger() {
+		return pageChanger;
+	}
+
+
+	public void setPageChanger(boolean pageChanger) {
+		this.pageChanger = pageChanger;
 	}
 
 
