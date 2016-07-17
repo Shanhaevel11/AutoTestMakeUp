@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import configurations.GeneralConfig;
 import fileOperators.JSONloader;
 
 import javax.swing.JLabel;
@@ -119,7 +120,7 @@ public class GeneralConfiguration extends JPanel {
 		generalConfigurationData.put("browserPath", browserPath.getText());
 		generalConfigurationData.put("chkLimitOfSteps", chkLimitOfSteps.isSelected());
 		generalConfigurationData.put("limitOfSteps", limitOfSteps.getText());
-		generalConfigurationData.put("browser", browser.getSelectedItem());
+		generalConfigurationData.put("browser", browser.getSelectedItem().toString());
 		//startData.put("Test2", testCheck);		
 		
 		return generalConfigurationData;
@@ -132,5 +133,18 @@ public class GeneralConfiguration extends JPanel {
 		chkLimitOfSteps.setSelected((boolean) data.get("chkLimitOfSteps"));	
 		limitOfSteps.setText(data.getString("limitOfSteps"));
 		browser.setSelectedItem(data.getString("browser"));
+	}
+	
+	public GeneralConfig getConfigutration(){
+		
+		if(browserPath.getText().isEmpty()){
+			
+			new JOptionPane().showMessageDialog(this, "Some data in GeneralConfiguration is missing.", "GeneralConfigurationMessage", JOptionPane.INFORMATION_MESSAGE);
+			
+		}
+		
+		GeneralConfig conf = new GeneralConfig(browserPath.getText(), chkLimitOfSteps.isSelected(), Integer.parseInt(limitOfSteps.getText()), browser.getSelectedItem().toString());
+		
+		return conf;
 	}
 }

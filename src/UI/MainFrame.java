@@ -9,10 +9,15 @@ import javax.swing.border.EmptyBorder;
 
 import org.json.simple.parser.ParseException;
 
+import configurations.EndConfig;
+import configurations.GeneralConfig;
+import configurations.StartConfig;
 import fileOperators.JSONloader;
 import fileOperators.JSONsaver;
 import fileOperators.Test;
+import generator.Entry;
 import generator.GeneratorAlpha;
+import generator.GeneratorBeta;
 
 import javax.swing.JTabbedPane;
 import java.awt.Component;
@@ -26,6 +31,7 @@ import javax.swing.JTable;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -182,10 +188,18 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void generateTests(){
-		
+		/**
 		GeneratorAlpha gen = new GeneratorAlpha();
 		System.out.println("RETURNED DATA : " + start.returnData());
 		gen.generateAlpha(start.returnData());
+		**/
+		
+		GeneratorBeta generator = new GeneratorBeta();
+		GeneralConfig generalConfig = general.getConfigutration();
+		StartConfig startConfig = start.getConfigutration();
+		EndConfig endConfig = end.getConfigutration();
+		Vector<Entry> entries = elements.getEntries();
+		generator.generateBeta(generalConfig, startConfig, endConfig, entries);
 		
 	}
 	

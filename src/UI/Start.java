@@ -8,6 +8,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import configurations.GeneralConfig;
+import configurations.StartConfig;
 import testTools.Tools;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -17,6 +19,7 @@ import java.lang.reflect.Method;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Start extends JPanel {
 	JCheckBox useStart;
@@ -86,4 +89,18 @@ public class Start extends JPanel {
 		return methodBox.getSelectedItem().toString();
 		
 	}
+	
+public StartConfig getConfigutration(){
+		
+//		if(browserPath.getText().isEmpty()){
+//			
+//			new JOptionPane().showMessageDialog(this, "Some data in GeneralConfiguration is missing.", "GeneralConfigurationMessage", JOptionPane.INFORMATION_MESSAGE);
+//			
+//		}
+		
+		StartConfig conf = new StartConfig(useStart.isSelected(), useOtherMethod.isSelected(), methodBox.getSelectedItem().toString());
+		
+		return conf;
+	}
+	
 }

@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import org.json.JSONObject;
 
+import configurations.EndConfig;
+import configurations.StartConfig;
 import testTools.Tools;
 
 
@@ -82,4 +84,17 @@ public class End extends JPanel {
 		
 	}
 
+	public EndConfig getConfigutration(){
+		
+//		if(browserPath.getText().isEmpty()){
+//			
+//			new JOptionPane().showMessageDialog(this, "Some data in GeneralConfiguration is missing.", "GeneralConfigurationMessage", JOptionPane.INFORMATION_MESSAGE);
+//			
+//		}
+		
+		EndConfig conf = new EndConfig(useEnd.isSelected(), useOtherMethod.isSelected(), methodBox.getSelectedItem().toString());
+		
+		return conf;
+	}
+	
 }

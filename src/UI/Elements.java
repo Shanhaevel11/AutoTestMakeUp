@@ -501,4 +501,14 @@ public class Elements extends JSplitPane {
 		scrollPane.repaint();
 		if(entries.size()>0)list.setSelectedIndex(0);
 	}
+
+	public Vector<Entry> getEntries() {
+		return entries;
+	}
+
+	public void setEntries(Vector<Entry> entries) {
+		this.entries = entries;
+	}
+	
+	
 }
