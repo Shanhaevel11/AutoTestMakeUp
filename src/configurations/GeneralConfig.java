@@ -12,14 +12,28 @@ public class GeneralConfig {
 	private boolean chkLimitOfSteps;
 	private int limitOfSteps;
 	private String browser;
+	private String testDirectory;
 	
-	public GeneralConfig(String browserPath, boolean chkLimitOfSteps, int limitOfSteps, String browser) {
+	public GeneralConfig(String browserPath, boolean chkLimitOfSteps, int limitOfSteps, String browser, String testDirectory) {
 		super();
 		this.browserPath = browserPath;
 		this.chkLimitOfSteps = chkLimitOfSteps;
 		this.limitOfSteps = limitOfSteps;
 		this.browser = browser;
+		this.testDirectory = testDirectory;
 		
+	}
+
+
+
+	public String getTestDirectory() {
+		return testDirectory;
+	}
+
+
+
+	public void setTestDirectory(String testDirectory) {
+		this.testDirectory = testDirectory;
 	}
 
 

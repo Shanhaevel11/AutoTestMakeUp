@@ -118,6 +118,10 @@ public class Entry {
 		this.methodName = methodName;
 	}
 	
-	
+	public void reload(){
+		
+		this.usages = this.usageLimit;
+		
+	}
 	
 }

@@ -4,10 +4,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class Options extends JPanel {
 
 	MainFrame parent = null;
+	private JTextField testDirectory;
 	
 	/**
 	 * Create the panel.
@@ -63,6 +66,7 @@ public class Options extends JPanel {
 		});
 		btnNewButton.setBounds(70, 55, 356, 181);
 		add(btnNewButton);
+		
 		
 	}
 	

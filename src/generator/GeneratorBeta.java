@@ -12,11 +12,13 @@ import org.openqa.selenium.WebElement;
 import configurations.EndConfig;
 import configurations.GeneralConfig;
 import configurations.StartConfig;
+import fileOperators.TestSaver;
 import testTools.Tools;
 
 public class GeneratorBeta {
 
 	private Tools tools;
+	private TestSaver testSaver = null;
 	
 	public void generateBeta(GeneralConfig generalConfig, StartConfig startConfig, EndConfig endConfig, Vector<Entry> entries ) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		/**
@@ -33,12 +35,21 @@ public class GeneratorBeta {
 			}
 			
 		 **/
+		//PrepareFile
+		testSaver = new TestSaver(generalConfig.getTestDirectory());
 		
 		
 		//Prepare tools
 		tools = new Tools();
 		
+		testSaver.createTestFile();
+		
 		tools.prepareWebDriver(generalConfig.getBrowser(), generalConfig.getBrowserPath());
+		
+		testSaver.addStartToTestFile(startConfig.getStartingURL(), generalConfig.getBrowser(), generalConfig.getBrowserPath());
+		
+		readyEntries(entries);
+		
 		
 		startOfTest(startConfig);
 		
@@ -46,19 +57,33 @@ public class GeneratorBeta {
 		ProcessEntries(generalConfig, entries);
 		
 		
-		
 		endOfTest(endConfig);
+		
+		testSaver.endTestFile();
 		
 		
 	}
 	
 	
+	private void readyEntries(Vector<Entry> entries) {
+		// TODO Auto-generated method stub
+		
+		for(Entry entry : entries){
+			entry.reload();
+		}
+		
+	}
+
+
 	private void startOfTest(StartConfig startConfig) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		
 		tools.driver.get(startConfig.getStartingURL());
 		
 		if(startConfig.isUseStart()){
 			tools.startMethod();
+			
+			testSaver.addMethodToTestFile("startMethod");
+			
 		}
 		
 		if(startConfig.isUseOtherMethod()){
@@ -66,6 +91,8 @@ public class GeneratorBeta {
 			
 			Method method = tools.getClass().getMethod(startConfig.getOtherMethodName(), null);
 			method.invoke(tools, null);
+			
+			testSaver.addMethodToTestFile(startConfig.getOtherMethodName());
 			
 		}
 	}
@@ -77,10 +104,14 @@ public class GeneratorBeta {
 			Method method = tools.getClass().getMethod(endConfig.getOtherMethodName(), null);
 			method.invoke(tools, null);
 			
+			testSaver.addMethodToTestFile(endConfig.getOtherMethodName());
+			
 		}
 		
 		if(endConfig.isUseEnd()){
 			tools.endMethod();
+			
+			testSaver.addMethodToTestFile("endMethod");
 		}
 		
 		
@@ -89,6 +120,7 @@ public class GeneratorBeta {
 	private void ProcessEntries(GeneralConfig generalConfig, Vector<Entry> entries){
 		
 		int limit = 9999;
+		boolean pageChanger=false;
 		
 		Class[] paramDriver = new Class[1];	
 		paramDriver[0] = WebDriver.class;
@@ -105,9 +137,17 @@ public class GeneratorBeta {
 		//main loop to take care of whole test
 		while(--limit>=0){
 			
+			pageChanger=false;
+			
 			for(Entry entry : entries){
 				
+				if(pageChanger){
+					break;
+				}
+				
 				WebElement element = null;
+				
+				System.out.println("Checking element = " + entry.getDetectionValue());
 				
 				try{
 				
@@ -153,18 +193,26 @@ public class GeneratorBeta {
 						Method method = null;
 						try {
 							
+							testSaver.addFindElementToTestFile(entry.getDetectionValue(), entry.getDetectionType());
+							
 							if(entry.isPassElement() && entry.isPassBrowser()){
 								method = tools.getClass().getMethod(entry.getMethodName(), paramDriverAndElement);
 								method.invoke(tools, tools.driver, element);
+								
+								testSaver.addMethodToTestFile(entry.getMethodName(), "this.driver", "element");
+								
 							}else if(entry.isPassElement()){
 								method = tools.getClass().getMethod(entry.getMethodName(), paramElement);
 								method.invoke(tools, element);
+								
+								testSaver.addMethodToTestFile(entry.getMethodName(), "element");
 							}else if(entry.isPassBrowser()){
 								method = tools.getClass().getMethod(entry.getMethodName(), paramDriver);
 								method.invoke(tools, tools.driver);
 							}else{
 								method = tools.getClass().getMethod(entry.getMethodName(), null);
 								method.invoke(tools, null);
+								testSaver.addMethodToTestFile(entry.getMethodName());
 							}
 							
 						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -174,7 +222,16 @@ public class GeneratorBeta {
 						}
 						
 						//TODO: use wait method after execution
+						if(entry.isWaitAfterMethod()){
+							tools.waitAfter();
+							testSaver.addMethodToTestFile("waitAfter");
+						}
+						
 						//TODO: Page will change after handling this entry
+						if(entry.isPageChanger()){
+							pageChanger=true;
+						}
+						
 					}
 				
 				

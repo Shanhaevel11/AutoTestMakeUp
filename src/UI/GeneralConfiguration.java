@@ -29,6 +29,8 @@ public class GeneralConfiguration extends JPanel {
 	private JTextField browserPath;
 	private JCheckBox chkLimitOfSteps;
 	private JComboBox browser;
+	private JTextField testDirectory;
+	
 	
 	/**
 	 * Create the panel.
@@ -94,6 +96,16 @@ public class GeneralConfiguration extends JPanel {
 		browser.addItem("Firefox");
 		add(browser);
 		
+		JLabel lblSaveTestIn = new JLabel("Save test in this directory:");
+		lblSaveTestIn.setBounds(56, 294, 128, 14);
+		add(lblSaveTestIn);
+		
+		testDirectory = new JTextField();
+		testDirectory.setText("C:\\AutoTestMakeUp\\GeneratedTests");
+		testDirectory.setBounds(56, 319, 500, 20);
+		add(testDirectory);
+		testDirectory.setColumns(10);
+		
 	}
 	
 	private void loadBrowser(){
@@ -121,6 +133,7 @@ public class GeneralConfiguration extends JPanel {
 		generalConfigurationData.put("chkLimitOfSteps", chkLimitOfSteps.isSelected());
 		generalConfigurationData.put("limitOfSteps", limitOfSteps.getText());
 		generalConfigurationData.put("browser", browser.getSelectedItem().toString());
+		generalConfigurationData.put("testDirectory", testDirectory.getText());
 		
 		//startData.put("Test2", testCheck);		
 		
@@ -134,6 +147,7 @@ public class GeneralConfiguration extends JPanel {
 		chkLimitOfSteps.setSelected((boolean) data.get("chkLimitOfSteps"));	
 		limitOfSteps.setText(data.getString("limitOfSteps"));
 		browser.setSelectedItem(data.getString("browser"));
+		testDirectory.setText(data.getString("testDirectory"));
 
 	}
 	
@@ -145,7 +159,7 @@ public class GeneralConfiguration extends JPanel {
 			
 		}
 		
-		GeneralConfig conf = new GeneralConfig(browserPath.getText(), chkLimitOfSteps.isSelected(), Integer.parseInt(limitOfSteps.getText()), browser.getSelectedItem().toString());
+		GeneralConfig conf = new GeneralConfig(browserPath.getText(), chkLimitOfSteps.isSelected(), Integer.parseInt(limitOfSteps.getText()), browser.getSelectedItem().toString(), testDirectory.getText());
 		
 		return conf;
 	}
