@@ -31,6 +31,7 @@ import javax.swing.JTable;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Vector;
 
 import javax.swing.JScrollPane;
@@ -199,7 +200,17 @@ public class MainFrame extends JFrame {
 		StartConfig startConfig = start.getConfigutration();
 		EndConfig endConfig = end.getConfigutration();
 		Vector<Entry> entries = elements.getEntries();
-		generator.generateBeta(generalConfig, startConfig, endConfig, entries);
+		
+		
+		try {
+			generator.generateBeta(generalConfig, startConfig, endConfig, entries);
+		} catch (NoSuchMethodException | SecurityException  e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

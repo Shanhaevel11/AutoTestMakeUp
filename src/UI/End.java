@@ -53,7 +53,7 @@ public class End extends JPanel {
 		Method[] methods = tools.getClass().getDeclaredMethods();
 		
 		for (Method m  : methods) {
-	         methodBox.addItem(m.getName());
+			if(!m.getName().equals("prepareWebDriver"))methodBox.addItem(m.getName());
 	      }
 		
 		

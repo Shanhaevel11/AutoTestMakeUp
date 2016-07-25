@@ -248,7 +248,7 @@ public class Elements extends JSplitPane {
 		Method[] methods = tools.getClass().getDeclaredMethods();
 
 		for (Method m : methods) {
-			executionMethod.addItem(m.getName());
+			if(!m.getName().equals("prepareWebDriver"))executionMethod.addItem(m.getName());
 		}
 
 	}

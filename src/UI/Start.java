@@ -20,11 +20,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Start extends JPanel {
 	JCheckBox useStart;
 	JComboBox methodBox;
 	JCheckBox useOtherMethod;
+	private JLabel label;
+	private JTextField startingURL;
 	
 	/**
 	 * Create the panel.
@@ -34,7 +37,7 @@ public class Start extends JPanel {
 		setLayout(null);
 		
 		useStart = new JCheckBox("Use Start Method at the beggining");
-		useStart.setBounds(56, 82, 265, 23);
+		useStart.setBounds(56, 112, 265, 23);
 		useStart.setSelected(true);
 		add(useStart);
 		
@@ -46,8 +49,18 @@ public class Start extends JPanel {
 		add(lblChooseOtherMethod);
 		
 		useOtherMethod = new JCheckBox("Use Other Method at the beggining");
-		useOtherMethod.setBounds(56, 108, 265, 23);
+		useOtherMethod.setBounds(56, 138, 265, 23);
 		add(useOtherMethod);
+		
+		label = new JLabel("Starting page:");
+		label.setBounds(56, 60, 175, 14);
+		add(label);
+		
+		startingURL = new JTextField();
+		startingURL.setText("URL");
+		startingURL.setColumns(10);
+		startingURL.setBounds(56, 85, 477, 20);
+		add(startingURL);
 	
 		getPossibleMethods();
 	}
@@ -59,7 +72,8 @@ public class Start extends JPanel {
 		Method[] methods = tools.getClass().getDeclaredMethods();
 		
 		for (Method m  : methods) {
-	         methodBox.addItem(m.getName());
+			
+	         if(!m.getName().equals("prepareWebDriver"))methodBox.addItem(m.getName());
 	      }
 		
 		
@@ -71,6 +85,7 @@ public class Start extends JPanel {
 		startData.put("useStart", useStart.isSelected());
 		startData.put("useOtherMethod", useOtherMethod.isSelected());
 		startData.put("otherMethod", methodBox.getSelectedItem().toString());
+		startData.put("startingURL", startingURL.getText());
 		//startData.put("Test2", testCheck);		
 		
 		return startData;
@@ -82,6 +97,7 @@ public class Start extends JPanel {
 		useStart.setSelected((boolean) data.get("useStart"));
 		useOtherMethod.setSelected((boolean) data.get("useOtherMethod"));	
 		methodBox.setSelectedItem(data.getString("otherMethod"));
+		startingURL.setText(data.getString("startingURL"));
 	}
 	
 	public String returnData(){
@@ -98,7 +114,7 @@ public StartConfig getConfigutration(){
 //			
 //		}
 		
-		StartConfig conf = new StartConfig(useStart.isSelected(), useOtherMethod.isSelected(), methodBox.getSelectedItem().toString());
+		StartConfig conf = new StartConfig(useStart.isSelected(), useOtherMethod.isSelected(), methodBox.getSelectedItem().toString(), startingURL.getText());
 		
 		return conf;
 	}

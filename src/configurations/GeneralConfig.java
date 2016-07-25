@@ -19,7 +19,10 @@ public class GeneralConfig {
 		this.chkLimitOfSteps = chkLimitOfSteps;
 		this.limitOfSteps = limitOfSteps;
 		this.browser = browser;
+		
 	}
+
+
 
 	public String getBrowserPath() {
 		return browserPath;

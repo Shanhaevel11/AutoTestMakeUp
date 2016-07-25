@@ -8,9 +8,10 @@ public class Entry {
 	public String methodName;
 	public boolean passElement;
 	public boolean passBrowser;
-	public int usageLimit=100;
+	public int usageLimit;
 	public boolean waitAfterMethod;
 	public boolean pageChanger;
+	private int usages;
 	
 	
 	public Entry(String name, String detectionType, String detectionValue, String methodName, boolean passElement,
@@ -25,11 +26,22 @@ public class Entry {
 		this.usageLimit = usageLimit;
 		this.waitAfterMethod = waitAfterMethod;
 		this.pageChanger = pageChanger;
+		this.usages=usageLimit;
 	}
 	
 
 	public int getUsageLimit() {
 		return usageLimit;
+	}
+
+
+	public void setUsages(int usages) {
+		this.usages = usages;
+	}
+
+
+	public int getUsages() {
+		return usages;
 	}
 
 
@@ -57,6 +69,9 @@ public class Entry {
 		this.usageLimit = usageLimit;
 	}
 
+	public void lowerUsages(){
+		this.usages--;
+	}
 
 	public boolean isPassElement() {
 		return passElement;

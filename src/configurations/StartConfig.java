@@ -11,13 +11,27 @@ public class StartConfig {
 	private boolean useStart;
 	private boolean useOtherMethod;
 	private String otherMethodName;
+	private String startingURL;
 	
-	public StartConfig(boolean useStart, boolean useOtherMethod, String otherMethodName) {
+	public StartConfig(boolean useStart, boolean useOtherMethod, String otherMethodName, String startingURL) {
 		super();
 		this.useStart = useStart;
 		this.useOtherMethod = useOtherMethod;
 		this.otherMethodName = otherMethodName;
+		this.startingURL = startingURL;
 	}
+
+	
+	
+	public String getStartingURL() {
+		return startingURL;
+	}
+
+	public void setStartingURL(String startingURL) {
+		this.startingURL = startingURL;
+	}
+
+
 
 	public boolean isUseStart() {
 		return useStart;
