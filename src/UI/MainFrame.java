@@ -130,7 +130,7 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("End", null, end, null);
 		
 		
-		tabbedPane.addTab("Options", null, options, null);
+		tabbedPane.addTab("Menu", null, options, null);
 		
 		tabbedPane.setSelectedComponent(options);
 		
